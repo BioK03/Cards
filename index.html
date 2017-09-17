@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Cards</title>
+    <style type="text/css">
+        body,
+        html {
+            display: block;
+            height: 100%;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        #container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+        
+        .card {
+            flex: 1 1;
+            background-color: #000000;
+            text-align: center;
+            padding: 2em;
+            margin: 1em;
+            cursor: pointer;
+            border-radius: 1em;
+            font-size: 300%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cards</h1>
+    <div id="container">
+
+    </div>
+    <script type="text/javascript">
+        (function() {
+            /* Get the GET parameter */
+            var cards = window.location.search.substr(1).split("=")[1].split(",");
+
+            /* shuffle input array */
+            cards = shuffle(cards);
+
+            /* insert cards */
+            var container = document.getElementById("container");
+            for (var i = 0; i < cards.length; i++) {
+                container.insertAdjacentHTML('beforeend', `<span class='card'>${cards[i]}</span>`);
+            }
+
+            /* event management */
+            var cardElements = document.getElementsByClassName("card");
+            for (var i = 0; i < cardElements.length; i++) {
+                cardElements[i].addEventListener("click", function() {
+                    this.style.backgroundColor = "white";
+                });
+            }
+        })();
+
+        /* Shuffle function taken from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array */
+        function shuffle(array) {
+            var currentIndex = array.length,
+                temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+    </script>
+</body>
+
+</html>
